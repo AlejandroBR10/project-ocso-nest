@@ -2,8 +2,15 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import {v4 as uuidv4} from 'uuid';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Product } from './entities/product.entity';
 @Injectable()
 export class ProductsService {
+  constructor(
+    @InjectRepository(Product)
+    private productRepository: Repository<Product>,
+  ){}
   private products : CreateProductDto[] = [{
       productId : uuidv4(),
       productName : 'Sabritas Normal 48g',
@@ -27,22 +34,38 @@ export class ProductsService {
   }
 ];
   create(createProductDto: CreateProductDto) {
-    if(!createProductDto.productId)
+    const product = this.productRepository.save(createProductDto)
+    /*if(!createProductDto.productId)
     createProductDto.productId = uuidv4();
-    this.products.push(createProductDto);
-    return createProductDto;
+    this.products.push(createProductDto);*/
+    return product;
   }
 
   findAll() {
-    return this.products;
+    return this.productRepository.find();
   }
 
-  findOne(id: string) {
-    const product = this.products.filter((product)=>product.productId === id)[0];
+  /*findOne(id: string):Promise<Product> {
+   /* const product = this.products.filter((product)=>product.productId === id)[0];
         if(!product) throw new NotFoundException();
          return product;
+         let aidi = parseInt(id);
+      const product = this.productRepository.findOneBy({productId: parseInt(id)});
+      return product;
 
-  }
+  }*/
+
+       findOne(productId: string){
+        const product = this.productRepository.findOneBy({ productId });
+      
+        if (!product) {
+          throw new NotFoundException();
+        }
+    
+        return product;
+      }
+      
+
 
   findByProvider(id: string){
     const productProvider = this.products.filter((product) => product.provider  === id);
@@ -51,7 +74,7 @@ export class ProductsService {
 
   }
 
-  update(id: string, updateProductDto: UpdateProductDto) {
+  /*update(id: string, updateProductDto: UpdateProductDto) {
     let productToUpdate = this.findOne(id);
     productToUpdate = { 
       ...productToUpdate,
@@ -63,13 +86,17 @@ export class ProductsService {
       return product;
     });
     return productToUpdate;
-  }
+  }*/
 
 
-  remove(id: string) {
+  /*remove(id: string) {
     const product = this.findOne(id);
     this.products = this.products.filter((product) => product.productId != id);
 
     return this.products;
-  }
+  }*/
+
+    async remove(id: string): Promise<void> {
+      await this.productRepository.delete(id);
+    }
 }
