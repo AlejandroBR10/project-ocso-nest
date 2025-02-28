@@ -10,5 +10,10 @@ export class Employee {
             @Column({type:"text"})
             phoneNumber : string;
             @Column({type: "text"})
-            email: string
+            email: string;
+            @Column({
+               type: "text",
+               nullable: true
+            })
+            photoUrl : string
 }
