@@ -1,6 +1,7 @@
 import { Optional } from "@nestjs/common";
+import { Provider } from "src/providers/entities/provider.entity";
 import { text } from "stream/consumers";
-import { Entity, Column , PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column , PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 @Entity()
 export class Product {
         @PrimaryGeneratedColumn("uuid")
@@ -13,4 +14,7 @@ export class Product {
         countSeal : number;
         //@Column({type:"uuid"})
         //provider : string;
+
+       @ManyToOne(() => Provider, (provider) => provider.products)
+       provider: Provider
 }

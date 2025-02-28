@@ -11,28 +11,6 @@ export class ProductsService {
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
   ){}
-  private products : CreateProductDto[] = [{
-      productId : uuidv4(),
-      productName : 'Sabritas Normal 48g',
-      price : 20,
-      countSeal : 3,
-      provider : uuidv4(),
-  },
-  {
-    productId : uuidv4(),
-    productName : 'Coca Cola 600ml',
-    price : 40,
-    countSeal : 2,
-    provider : uuidv4(),
-  },
-  {
-    productId : uuidv4(),
-    productName : 'Agua Ciel 1L',
-    price : 15,
-    countSeal : 2,
-    provider : uuidv4(),
-  }
-];
   create(createProductDto: CreateProductDto) {
     const product = this.productRepository.save(createProductDto)
     /*if(!createProductDto.productId)
@@ -68,9 +46,7 @@ export class ProductsService {
 
 
   findByProvider(id: string){
-    const productProvider = this.products.filter((product) => product.provider  === id);
-    if(productProvider.length === 0) throw new NotFoundException();
-    return productProvider;
+    return "Ok"
 
   }
 

@@ -1,4 +1,5 @@
 import { IsInt, IsNumber, IsOptional, IsString, IsUUID, MaxLength } from "class-validator";
+import { Provider } from "src/providers/entities/provider.entity";
 
 export class CreateProductDto {
     @IsString()
@@ -14,7 +15,6 @@ export class CreateProductDto {
     countSeal : number;
     @IsString()
     @IsUUID()
-    @IsOptional()
-    provider : string;
+    provider : Provider;
 
 }
