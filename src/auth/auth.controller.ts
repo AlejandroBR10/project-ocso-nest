@@ -11,4 +11,9 @@ export class AuthController {
   singup(@Body() CreateUserDto: CreateUserDto){
     return this.authService.registerUser(CreateUserDto);
   }
+
+  @Post("login")
+  login(@Body() CreateUserDto: CreateUserDto){
+    return this.authService.loginUser(CreateUserDto);
+  }
 }
