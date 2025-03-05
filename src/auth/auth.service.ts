@@ -5,6 +5,7 @@ import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as  bcrypt from "bcrypt";
+import  * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class AuthService {
@@ -32,7 +33,9 @@ export class AuthService {
     if(!match){
       throw new UnauthorizedException("No estas autorizado");
     }
-    return user;
+    const token = await jwt.sign(JSON.stringify(user), "nooo");
+    console.log(token);
+    return token;
   } 
 
 }
