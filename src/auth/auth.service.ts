@@ -34,7 +34,7 @@ export class AuthService {
       throw new UnauthorizedException("No estas autorizado");
     }
     const token = await jwt.sign(JSON.stringify(user), "nooo");
-    console.log(token);
+    console.log("El token es: " +token);
     return token;
   } 
 
