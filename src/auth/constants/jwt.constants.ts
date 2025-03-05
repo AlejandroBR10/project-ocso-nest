@@ -1,4 +1,3 @@
-export class jwtconstanst{
-    JWT_KEY: 'yourSecretKeyHere'; // 🔴 Usa variables de entorno en producción
-    EXPIRES_IN: '1h';
-}
+
+   export const JWT_KEY =  'yourSecretKeyHere'; // 🔴 Usa variables de entorno en producción
+    export const EXPIRES_IN = '30s';
