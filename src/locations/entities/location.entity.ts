@@ -1,5 +1,8 @@
 import { copyFile } from "fs";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Employee } from "src/employees/entities/employee.entity";
+import { Manager } from "src/managers/entities/manager.entity";
+import { Region } from "src/regions/entities/region.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Location {
@@ -11,5 +14,18 @@ export class Location {
     locationAddress : string;
     @Column('simple-array')
     locationLatLng : number[];
+    @OneToOne(() => Manager)
+    @JoinColumn({
+        name: 'managerId',
+    })
+    manager: Manager;
 
+    @ManyToOne(() => Region, (region) => region.locations)
+    @JoinColumn({
+        name: 'regionId',
+    })
+    region: Region;
+
+    @OneToMany(() => Employee, (employee) => employee.location)
+    employees: Employee[];
 }
