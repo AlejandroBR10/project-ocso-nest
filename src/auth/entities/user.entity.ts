@@ -8,4 +8,8 @@ userId: string;
 userEmail: string;
 @Column('text')
 userPassword: string;
+@Column('simple-array',{
+    default: "Employee"
+})
+userRoles: string[];
 }
