@@ -42,4 +42,16 @@ export class AuthService {
     return token;
   } 
 
+  async updateUser(userEmail: string, updateUserDto: UpdateUserDto){    
+   const newUserData =  await this.userRepository.preload({
+      userEmail, 
+      ...updateUserDto
+    })
+    if(!newUserData){
+      throw new NotFoundException("No se encontro el usuario");
+    }
+    this.userRepository.save(newUserData);
+    return newUserData;
+  }
+
 }
