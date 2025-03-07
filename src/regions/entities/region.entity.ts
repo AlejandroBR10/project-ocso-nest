@@ -13,6 +13,6 @@ export class Region {
     @Column('simple-array')
     regionStates : string[];
 
-     @OneToMany(() => Location, (location) => location.region)
+    @OneToMany(() => Location, (location) => location.region)
         locations: Location[];
 }

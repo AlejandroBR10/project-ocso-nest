@@ -17,14 +17,10 @@ userPassword: string;
 })
 userRoles: string[];
 
-@OneToOne(() => Manager, {
-    eager: true,
-})
-manager: Manager
+@OneToOne(() => Manager)
+manager: Manager;
 
-@OneToOne(() => Employee, {
-    eager: true,
-})
-employee: Employee
+@OneToOne(() => Employee)
+employee: Employee;
 
 }

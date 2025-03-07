@@ -10,7 +10,7 @@ export class ManagersService {
   constructor(
     @InjectRepository(Manager)
     private  managerRepository: Repository<Manager>
-  ){  }
+  ){}
   create(createManagerDto: CreateManagerDto) {
     const manager = this.managerRepository.save(createManagerDto);
     return manager;
