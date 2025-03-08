@@ -42,9 +42,9 @@ export class AuthService {
     return token;
   } 
 
-  async updateUser(userEmail: string, updateUserDto: UpdateUserDto){    
+  async updateUser(email: string, updateUserDto: UpdateUserDto){    
    const newUserData =  await this.userRepository.preload({
-      userEmail, 
+      userId: email, 
       ...updateUserDto
     })
     if(!newUserData){

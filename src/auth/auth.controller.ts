@@ -3,7 +3,9 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { ApiAuth } from './decorators/api.decorator';
 
+@ApiAuth()
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -18,7 +20,7 @@ export class AuthController {
     return this.authService.loginUser(loginUserDto);
   }
 
-  @Patch(":email")
+  @Patch("/user/:email")
   updateUser(@Param("email") email:string, @Body() updateUserDto : UpdateUserDto ){
     return this.authService.updateUser(email, updateUserDto);
   }
