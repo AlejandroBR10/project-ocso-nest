@@ -16,7 +16,6 @@ import { EXPIRES_IN } from './auth/constants/jwt.constants';
 
 @Module({
   imports: [
-   //ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
         type: 'postgres',
         host: process.env.host,
@@ -28,9 +27,11 @@ import { EXPIRES_IN } from './auth/constants/jwt.constants';
         autoLoadEntities: true,
         synchronize: true,
       }),
+      ConfigModule.forRoot(),
       EmployeesModule, ProductsModule, ProvidersModule, ManagersModule, LocationsModule, RegionsModule, AuthModule
     ],
   controllers: [],
   providers: [],
+  
 })
 export class AppModule {}
