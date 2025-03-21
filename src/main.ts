@@ -3,25 +3,19 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import * as cookieParser from 'cookie-parser';
+
 
 async function bootstrap() {
   console.log('NestJS server is starting...');
   const app = await NestFactory.create(AppModule, {
     cors: {
-      origin: process.env.allowedOrigin || '*',
+      origin: process.env.allowedOrigin,
+      credentials: true,
     },
   });
-  console.log('Allowed Origin:', process.env.allowedOrigin); 
-
-  /*const app = await NestFactory.create(AppModule);
   
-  console.log('Allowed Origin:', process.env.allowedOrigin);  // Asegúrate de que este valor no sea undefined
-
-  app.enableCors({
-    origin: process.env.allowedOrigin || '*',
-    credentials: true,
-  },);*/
-  
+app.use(cookieParser());
   const config = new DocumentBuilder()
   .setTitle('Ocso API')
   .setDescription('Api for ocso management')
