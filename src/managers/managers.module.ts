@@ -10,5 +10,6 @@ import { AuthModule } from 'src/auth/auth.module';
 AuthModule],
   controllers: [ManagersController],
   providers: [ManagersService],
+  exports : [ManagersModule]
 })
 export class ManagersModule {}
