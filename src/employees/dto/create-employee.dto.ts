@@ -1,4 +1,4 @@
-import {  IsEmail, IsObject, IsOptional, IsString, IsUUID, MaxLength } from "class-validator";
+import {  IsEmail, IsObject, IsOptional, isString, IsString, IsUUID, MaxLength } from "class-validator";
 import { Employee } from "../entities/employee.entity";
 import { User } from "src/auth/entities/user.entity";
 import { Type } from "class-transformer";
@@ -31,6 +31,11 @@ export class CreateEmployeeDto {
         @ApiProperty()
         @IsEmail()
         employeeEmail: string;
+
+        @ApiProperty()
+        @IsString()
+        @MaxLength(200)
+        employeePhoto : string;
 
         @ApiPropertyOptional()
         @IsOptional()

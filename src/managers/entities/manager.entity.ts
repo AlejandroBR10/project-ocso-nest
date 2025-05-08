@@ -18,7 +18,7 @@ export class Manager {
     managerPhoneNumber : string;
     @OneToOne(() => Location)
     @JoinColumn({
-        name: 'locationId',
+        name: 'locationId',     
     })
     location: Location | string | null ;
     @OneToOne(() => User)

@@ -10,7 +10,7 @@ export class CreateProductDto {
     productId : string;
     @ApiProperty()
     @IsString()
-    @MaxLength(40)
+    @MaxLength(40)  
     productName : string;
     @ApiProperty()
     @IsNumber()
@@ -19,8 +19,7 @@ export class CreateProductDto {
     @IsInt()
     countSeal : number;
     @ApiProperty()
-    @IsObject()
-    //@IsUUID()
-    provider : Provider;
+    @IsString()
+    provider : Provider | string;
 
 }

@@ -12,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JWT_KEY } from './auth/constants/jwt.constants';
 import { EXPIRES_IN } from './auth/constants/jwt.constants';
+import { AwsModule } from './aws/aws.module';
 
 
 @Module({
@@ -28,7 +29,7 @@ import { EXPIRES_IN } from './auth/constants/jwt.constants';
         synchronize: true,
       }),
       ConfigModule.forRoot(),
-      EmployeesModule, ProductsModule, ProvidersModule, ManagersModule, LocationsModule, RegionsModule, AuthModule
+      EmployeesModule, ProductsModule, ProvidersModule, ManagersModule, LocationsModule, RegionsModule, AuthModule, AwsModule
     ],
   controllers: [],
   providers: [],
