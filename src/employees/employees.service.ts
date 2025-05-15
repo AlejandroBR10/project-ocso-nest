@@ -9,7 +9,7 @@ import { Employee } from './entities/employee.entity';
 
 @Injectable()
 export class EmployeesService {
-   constructor(
+   constructor( 
       @InjectRepository(Employee)
       private employeeRepository: Repository<Employee>,
     ){}
@@ -20,7 +20,11 @@ export class EmployeesService {
   }
 
   findAll() {
-    return this.employeeRepository.find();
+    return this.employeeRepository.find({
+      relations : {
+        location : true
+      }
+    });
   }
 
   findByLocation(id:number){
@@ -32,7 +36,14 @@ export class EmployeesService {
   }
 
   findOne(id: string) {
-    const employee = this.employeeRepository.findOneBy({employeeId: id});
+    const employee = this.employeeRepository.findOne({
+      where : {
+        employeeId : id 
+      },
+      relations: {
+        location:true
+      }
+    });
     if(!employee){
       throw new NotFoundException();
     } 
@@ -45,9 +56,11 @@ export class EmployeesService {
       ...updateEmployeeDto
     });
     if(!employeeToUpdate) throw new NotFoundException();
+  
     this.employeeRepository.save(employeeToUpdate);
     
     return employeeToUpdate;
+   
   }
 
   remove(id: string) {

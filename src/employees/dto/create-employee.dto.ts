@@ -34,12 +34,12 @@ export class CreateEmployeeDto {
 
         @ApiProperty()
         @IsString()
-        @MaxLength(200)
+        @IsOptional()
         employeePhoto : string;
 
         @ApiPropertyOptional()
         @IsOptional()
-        @IsObject()
-        location : Location
+        @IsString ()
+        location : Location | string
 }
 

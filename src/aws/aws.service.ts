@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PutObjectAclCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 @Injectable()
@@ -12,6 +12,7 @@ export class AwsService {
     })
 
     async uploadFile(file: Express.Multer.File){
+       
         const key = file.originalname;
         const url = `https://nest-ocso-project-test-bucket.s3.us-east-2.amazonaws.com/${key}`;
         const bucket = "nest-ocso-project-test-bucket";
@@ -20,11 +21,13 @@ export class AwsService {
             Body : file.buffer,
             Bucket : bucket,
         })
+    
         const response = await this.s3.send(command);
         if(response.$metadata.httpStatusCode == 200){
             return url;
-        }
+    }
         //console.log(response);
         //return response;
     }
+
 }

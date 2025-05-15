@@ -6,6 +6,10 @@ import { User } from './entities/user.entity';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { JWT_KEY } from './constants/jwt.constants';
 import { EXPIRES_IN } from './constants/jwt.constants';
+import { ManagersModule } from 'src/managers/managers.module';
+import { EmployeesModule } from 'src/employees/employees.module';
+import { Manager } from 'src/managers/entities/manager.entity';
+import { Employee } from 'src/employees/entities/employee.entity';
 
 
 
