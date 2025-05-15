@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -23,6 +23,10 @@ export class AuthService {
   ){}
 
   async registerEmployee(id : string ,createUserDto: CreateUserDto){
+    const roles = createUserDto.userRoles;
+    if (roles.includes("Admin") || roles.includes("Manager")){
+       throw new BadRequestException("Rol invalido");
+    }
     createUserDto.userPassword = bcrypt.hashSync(createUserDto.userPassword , 5)
       const user = await this.userRepository.save(createUserDto);
       const employee = await this.employeeRepository.preload({
@@ -34,6 +38,10 @@ export class AuthService {
   }
 
    async registerManager(id : string ,createUserDto: CreateUserDto){
+    const roles = createUserDto.userRoles;
+    if (roles.includes("Admin") || roles.includes("Employee")){
+       throw new BadRequestException("Rol invalido");
+    }
     createUserDto.userPassword = bcrypt.hashSync(createUserDto.userPassword , 5)
       const user = await this.userRepository.save(createUserDto);
       const manager = await this.managerRepository.preload({
